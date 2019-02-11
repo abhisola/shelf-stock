@@ -1,0 +1,1 @@
+python ./shelf_stock/send_shelf_email_report.py

@@ -16,10 +16,13 @@ import psycopg2
 from datetime import date, timedelta
 import subprocess
 import time
+settings_path = os.path.join(os.path.dirname(__file__), "..", "settings.json")
+temp_images_path = "/temp_images_timelapse/s3/"
 
-with open('../settings.json') as jsonData:
+with open(settings_path) as jsonData:
     settings = json.load(jsonData)
     jsonData.close()
+
 hostname = settings['postgres']['hostname']
 username = settings['postgres']['username']
 password = settings['postgres']['password']
@@ -29,11 +32,12 @@ fps = settings['prefs']['timelapse_fps']
 HIGH_COMPRESSION = settings['prefs']['high_compression']
 LOW_COMPRESSION = settings['prefs']['low_compression']
 bucket_name = settings['s3']['bucket']
-temp_folder = 'temp_image/s3/'
+
 s3 = boto3.resource('s3')
 bucket = s3.Bucket(bucket_name)
 racknums = []
 rack_images = []
+rackNum = ''
 
 # set default date to yesterday
 yesterday = date.today() - timedelta(1)
@@ -72,7 +76,7 @@ def renameImages(dir):
 def processImages(rackNum):
     print('Getting Images For Racknum '+str(rackNum))
     path = str(rackNum) + "/" + subjectYear + "/" + subjectMonth + "/" + subjectDay + "/"
-    command = "aws s3 sync s3://" + bucket_name + "/" + path + " " + temp_folder + path
+    command = "aws s3 sync s3://" + bucket_name + "/" + path + " " + temp_images_path + path
     try:
         process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
         process.wait(10)
@@ -80,16 +84,16 @@ def processImages(rackNum):
         print('Images Synced for '+str(rackNum))
     except subprocess.TimeoutExpired:
         pass
-    if checkFileExists(temp_folder+path+'videos'):
+    if checkFileExists(temp_images_path+path+'videos'):
         print('Removing Folder videos')
-        shutil.rmtree(temp_folder+path+'videos')
+        shutil.rmtree(temp_images_path+path+'videos')
         time.sleep(5)
-    files = os.listdir(temp_folder + path)
+    files = os.listdir(temp_images_path + path)
     shelves = getNumShelves(files)
     print('Shelves ' + str(shelves))
     dict = {}
     for shelf in shelves:
-        createFolder(temp_folder + path + 'video-' + shelf)
+        createFolder(temp_images_path + path + 'video-' + shelf)
         print('Processing Shelf ' + shelf)
         shelf_array = []
         for file in files:
@@ -97,20 +101,20 @@ def processImages(rackNum):
                 name = file.split('-')
                 if name[0] == shelf:
                     shelf_array.append(file)
-                    shutil.move(temp_folder + path + file, temp_folder + path + 'video-' + shelf + '/' + file)
+                    shutil.move(temp_images_path + path + file, temp_images_path + path + 'video-' + shelf + '/' + file)
 
-        renameImages(temp_folder + path + 'video-' + shelf + '/')
+        renameImages(temp_images_path + path + 'video-' + shelf + '/')
         print("Shelf Images ")
         print(str(shelf_array))
         dict[shelf] = shelf_array
-    videoImageFolders = os.listdir(temp_folder + path)
+    videoImageFolders = os.listdir(temp_images_path + path)
     print('Found Folders ' + str(videoImageFolders))
     for folder in videoImageFolders:
-        if os.path.isdir(temp_folder + path + folder):
+        if os.path.isdir(temp_images_path + path + folder):
             videoName = 'Timelapse-' + folder.split('-')[1]
-            image_path = temp_folder + path + folder + '/' + '%01d.jpg'
-            output_path = temp_folder + path + folder + '/' + videoName + '-Raw.mp4'
-            output_compressed_path = temp_folder + path + folder + '/' + videoName + '.mp4'
+            image_path = temp_images_path + path + folder + '/' + '%01d.jpg'
+            output_path = temp_images_path + path + folder + '/' + videoName + '-Raw.mp4'
+            output_compressed_path = temp_images_path + path + folder + '/' + videoName + '.mp4'
             makeVideo = 'ffmpeg -r {0} -f image2 -start_number 0 -i {1} -codec:v prores -profile:v 2 {2}'.format(
                 fps, image_path, output_path)
             compressVideo = 'ffmpeg -i {0} -c:v libx264 -preset slow -crf {1} -c:a copy -pix_fmt yuv420p {2}'.format(output_path, HIGH_COMPRESSION, output_compressed_path)
@@ -129,7 +133,7 @@ def processImages(rackNum):
             #print(stdout)
             #print('Compress_Error- ')
             #print(stderr)
-            s3_video_path =  path + 'videos/' + videoName + '.mp4'
+            s3_video_path = path + 'videos/' + videoName + '.mp4'
             uploadVideo(output_compressed_path, s3_video_path)
             data = {}
             data['racknum'] = rackNum
@@ -157,9 +161,8 @@ def saveToDatabase(data):
     conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
     cursor = conn.cursor()
     print('Checking If Already Saved')
-    check_exist = "SELECT * from timelapse where racknum='{0}' AND url='{1}' AND shelf='{2}' AND date_recorded='{3}'".format(
+    check_exist = "SELECT * from timelapse where racknum='{0}' AND shelf='{1}' AND date_recorded='{2}'".format(
                                                                                                data['racknum'],
-                                                                                               data['url'],
                                                                                                data['shelf'],
                                                                                                data['date_recorded'])
     cursor.execute(check_exist)
@@ -172,8 +175,15 @@ def saveToDatabase(data):
                                                                                                 data['url'],
                                                                                                 data['shelf'],
                                                                                                 data['date_recorded'])
-        cursor.execute(query)
-        conn.commit()
+    else:
+        query = "UPDATE timelapse SET url='{0}' WHERE racknum='{1}' AND shelf='{2}' AND date_recorded='{3}'".format(
+                                                                                                data['url'],
+                                                                                                data['racknum'],
+                                                                                                data['shelf'],
+                                                                                                data['date_recorded']
+        )
+    cursor.execute(query)
+    conn.commit()
     cursor.close()
     conn.close()
 
@@ -216,7 +226,7 @@ def createFolder(directory):
 
 def removeTempFolder():
     print('Doing House Cleaning')
-    shutil.rmtree(temp_folder)
+    shutil.rmtree(temp_images_path)
     time.sleep(5)
 
 def emptyFolder(folder):
@@ -240,11 +250,12 @@ def main(argv):
     global subjectYear
     global subjectMonth
     global subjectDay
-    if checkFileExists(temp_folder):
+    global rackNum
+    if checkFileExists(temp_images_path):
         removeTempFolder()
     # parse commandline parameters
     try:
-        opts, args = getopt.getopt(argv, "d:")
+        opts, args = getopt.getopt(argv, "d:r:")
     except getopt.GetoptError:
         usage()
         sys.exit(2)
@@ -260,16 +271,23 @@ def main(argv):
             subjectYear = dateParts[0]
             subjectMonth = dateParts[1]
             subjectDay = dateParts[2]
-        if len(dateParts) != 3 or len(subjectYear) != 4 or len(subjectMonth) != 2 or len(subjectDay) != 2 :
-            print("Invalid date")
-            usage()
-            sys.exit(2)
+            if len(dateParts) != 3 or len(subjectYear) != 4 or len(subjectMonth) != 2 or len(subjectDay) != 2 :
+                print("Invalid date")
+                usage()
+                sys.exit(2)
+        elif opt == '-r':
+            rackNum = arg
 
-    fetchRacks()
-    if len(racknums) > 0:
-        for racknum in racknums:
-            processImages(racknum[0])
-    #processImages('000102')
+    selected_date = date(int(subjectYear), int(subjectMonth), int(subjectDay))
+    if rackNum != '':
+        print("Generating Time Lapse For Racknum:"+rackNum+". Date: "+selected_date.isoformat())
+        processImages(rackNum)
+    else:
+        print("Generating Time Lapse For All Racks. Date: "+selected_date.isoformat())
+        fetchRacks()
+        if len(racknums) > 0:
+            for racknum in racknums:
+                processImages(racknum[0])
 
 
 # call main function

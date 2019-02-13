@@ -6,10 +6,13 @@ import psycopg2
 import json
 import shutil
 import time
-from os import path
+import os
 settings = {}
 racknum = ''
 to_days = 1
+settings_path = os.path.join(os.path.dirname(__file__), "..", "settings.json")
+temp_images_path = "/temp_images_processing/s3"
+process_rackimages_path = os.path.join(os.path.dirname(__file__), "processrackimages.py")
 
 
 def main(argv):
@@ -47,9 +50,7 @@ def main(argv):
         elif opt == '-t':
             to_days = int(arg)
 
-
-
-    with open('../settings.json') as jsonData:
+    with open(settings_path) as jsonData:
       settings = json.load(jsonData)
       jsonData.close()
 
@@ -76,7 +77,7 @@ def main(argv):
         print("Begining Date: "+selected_date.isoformat())
         while i <= to_days:
             formated_date = selected_date.strftime('%Y-%m-%d')
-            command = '''python processrackimages.py -r {0} -d {1}'''.format(found_rack, formated_date)
+            command = '''python {0} -r {1} -d {2}'''.format(process_rackimages_path, found_rack, formated_date)
             print('\n' + 'Processing Rack ' + found_rack + ' For Date:'+selected_date.isoformat())
             print('Days:'+str(i))
             try:
@@ -102,14 +103,14 @@ def usage():
     print("  -d YYYY-MM-DD : UTC date ex: 2019-01-01")
 
 def checkFileExists(file):
-    return path.exists(file)
+    return os.path.exists(file)
 
 # call main function
 if __name__ == "__main__":
     # clean up tmp files
-    if checkFileExists('/temp_images/s3'):
+    if checkFileExists(temp_images_path):
         print('Removing Old Images')
-        shutil.rmtree('/temp_image/s3')
+        shutil.rmtree(temp_images_path)
         time.sleep(5)
     main(sys.argv[1:])
 

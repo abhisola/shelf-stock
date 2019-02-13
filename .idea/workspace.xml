@@ -2,13 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51fac192-0a16-4b78-9655-b3c60e01d29c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Reports/send_shelf_email_report.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Timelapse/timelapse.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TriangleProcessing/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TriangleProcessing/process.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TriangleProcessing/processrackimages.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TriangleProcessing/recognizer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Reports/send_shelf_email_report.py" beforeDir="false" afterPath="$PROJECT_DIR$/Reports/send_shelf_email_report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Timelapse/timelapse.py" beforeDir="false" afterPath="$PROJECT_DIR$/Timelapse/timelapse.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TriangleProcessing/process.py" beforeDir="false" afterPath="$PROJECT_DIR$/TriangleProcessing/process.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TriangleProcessing/processrackimages.py" beforeDir="false" afterPath="$PROJECT_DIR$/TriangleProcessing/processrackimages.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sendReport.bat" beforeDir="false" afterPath="$PROJECT_DIR$/sendReport.bat" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -18,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TriangleProcessing/process.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="83" column="51" lean-forward="true" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
+            <state relative-caret-position="403">
+              <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -30,26 +30,13 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TriangleProcessing/processrackimages.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="191" column="8" selection-start-line="191" selection-start-column="8" selection-end-line="191" selection-end-column="8" />
+            <state relative-caret-position="403">
+              <caret line="13" selection-start-line="13" selection-end-line="13" selection-end-column="48" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <element signature="e#5257#5646#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/TriangleProcessing/recognizer.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4804">
-              <caret line="51" column="41" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="41" />
-              <folding>
-                <element signature="e#48#79#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -71,6 +58,10 @@
       <find>print(</find>
       <find>perce</find>
       <find>print</find>
+      <find>temp_image_path</find>
+      <find>temp_folder</find>
+      <find>temp_images_path = os.path.join('C:', 'temp_images', 's3')</find>
+      <find>temp_images_path</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -84,17 +75,19 @@
         <option value="$PROJECT_DIR$/TriangleProcessing/tools/detect.py" />
         <option value="$PROJECT_DIR$/TriangleProcessing/tools/recognizer.py" />
         <option value="$PROJECT_DIR$/TriangleProcessing/tools/__init__.py" />
-        <option value="$PROJECT_DIR$/Timelapse/timelapse.py" />
-        <option value="$PROJECT_DIR$/Reports/send_shelf_email_report.py" />
         <option value="$PROJECT_DIR$/TriangleProcessing/recognizer.py" />
-        <option value="$PROJECT_DIR$/TriangleProcessing/process.py" />
+        <option value="$PROJECT_DIR$/settings.json" />
+        <option value="$PROJECT_DIR$/Timelapse/timelapse.py" />
         <option value="$PROJECT_DIR$/TriangleProcessing/processrackimages.py" />
+        <option value="$PROJECT_DIR$/Reports/send_shelf_email_report.py" />
+        <option value="$PROJECT_DIR$/sendReport.bat" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/TriangleProcessing/process.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="260" />
-    <option name="y" value="20" />
+    <option name="x" value="-8" />
     <option name="width" value="1400" />
     <option name="height" value="1000" />
   </component>
@@ -113,6 +106,16 @@
             <path>
               <item name="shelf-stock" type="b2602c69:ProjectViewProjectNode" />
               <item name="shelf-stock" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shelf-stock" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shelf-stock" type="462c0819:PsiDirectoryNode" />
+              <item name="Reports" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="shelf-stock" type="b2602c69:ProjectViewProjectNode" />
+              <item name="shelf-stock" type="462c0819:PsiDirectoryNode" />
+              <item name="Timelapse" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="shelf-stock" type="b2602c69:ProjectViewProjectNode" />
@@ -155,7 +158,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12486828" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12486828" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32911393" />
@@ -166,7 +169,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Educational.CheckDetails" order="8" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32972974" />
+      <window_info anchor="bottom" id="Terminal" order="9" visible="true" weight="0.32972974" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.3264865" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -202,26 +205,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TriangleProcessing/tools/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TriangleProcessing/rackDetails.json">
+    <entry file="file://$PROJECT_DIR$/TriangleProcessing/tools/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/TriangleProcessing/rackDetails.json" />
+    <entry file="file://$PROJECT_DIR$/start.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7867">
-          <caret line="755" column="5" lean-forward="true" selection-start-line="755" selection-start-column="5" selection-end-line="755" selection-end-column="5" />
+        <state>
+          <caret column="44" selection-start-column="44" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/settings.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="62">
-          <caret line="2" column="71" lean-forward="true" selection-start-line="2" selection-start-column="71" selection-end-line="2" selection-end-column="71" />
+        <state relative-caret-position="248">
+          <caret line="8" column="56" lean-forward="true" selection-start-line="8" selection-start-column="56" selection-end-line="8" selection-end-column="56" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Reports/send_shelf_email_report.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
+        <state relative-caret-position="187">
           <caret line="31" column="24" lean-forward="true" selection-start-line="31" selection-start-column="24" selection-end-line="31" selection-end-column="24" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
@@ -229,19 +231,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Timelapse/timelapse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1240">
-          <caret line="46" column="25" lean-forward="true" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
-          <folding>
-            <element signature="e#200#210#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TriangleProcessing/recognizer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4804">
+        <state relative-caret-position="31">
           <caret line="51" column="41" selection-start-line="51" selection-start-column="38" selection-end-line="51" selection-end-column="41" />
           <folding>
             <element signature="e#48#79#0" expanded="true" />
@@ -249,23 +241,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/TriangleProcessing/process.py">
+    <entry file="file://$PROJECT_DIR$/generatetimelapse.bat">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="83" column="51" lean-forward="true" selection-start-line="83" selection-start-column="51" selection-end-line="83" selection-end-column="51" />
+        <state>
+          <caret column="31" selection-start-column="31" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Timelapse/timelapse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="249">
+          <caret line="19" selection-start-line="19" selection-end-line="19" selection-end-column="47" />
           <folding>
-            <element signature="e#0#17#0" expanded="true" />
+            <element signature="e#200#210#0" expanded="true" />
+            <element signature="e#5373#5759#0" />
+            <element signature="e#7352#7658#0" />
+            <element signature="e#7692#7716#0" />
+            <element signature="e#7748#8143#0" />
+            <element signature="e#8179#8374#0" />
+            <element signature="e#8404#8487#0" />
+            <element signature="e#8893#8998#0" />
+            <element signature="e#9020#10139#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sendReport.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="31">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="36" column="14" lean-forward="true" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/TriangleProcessing/processrackimages.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="191" column="8" selection-start-line="191" selection-start-column="8" selection-end-line="191" selection-end-column="8" />
+        <state relative-caret-position="403">
+          <caret line="13" selection-start-line="13" selection-end-line="13" selection-end-column="48" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <element signature="e#5257#5646#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TriangleProcessing/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="13" column="46" lean-forward="true" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#17#0" expanded="true" />
           </folding>
         </state>
       </provider>

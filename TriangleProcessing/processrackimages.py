@@ -10,7 +10,9 @@ import numpy as np
 sys.path.append('./tools')
 from recognizer import TriRecognizeParams, TriRecognizer
 
-with open('../settings.json') as jsonData:
+settings_path = os.path.join(os.path.dirname(__file__), "..", "settings.json")
+temp_images_path = "/temp_images_processing/s3/"
+with open(settings_path) as jsonData:
   settings = json.load(jsonData)
   jsonData.close()
 
@@ -19,7 +21,6 @@ username = settings['postgres']['username']
 password = settings['postgres']['password']
 database = settings['postgres']['database']
 aws = settings['s3']['url']
-temp_image_path = '/temp_image/s3/'
 rack_config = {}
 # main program entry point - decode parameters, act accordingly
 def main(argv):
@@ -63,15 +64,15 @@ def main(argv):
   # grab images from S3
   path = rackNum + "/" + subjectYear + "/" + subjectMonth + "/" + subjectDay
   sys.stdout.write(path + " ")
-  command = "aws s3 sync s3://"+settings['s3']['bucket']+"/" + path + " "+ temp_image_path + path
+  command = "aws s3 sync s3://"+settings['s3']['bucket']+"/" + path + " "+ temp_images_path + path
   try:
       process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
       process.wait(10)
   except subprocess.TimeoutExpired:
     pass
-  if checkFileExists(temp_image_path+path+'/videos'):
+  if checkFileExists(temp_images_path+path+'/videos'):
         print('Removing Folder videos')
-        shutil.rmtree(temp_image_path+path+'/videos')
+        shutil.rmtree(temp_images_path+path+'/videos')
         time.sleep(5)
   # setup DB
   conn = psycopg2.connect(host=hostname, user=username, password=password, dbname=database)
@@ -88,7 +89,7 @@ def main(argv):
   triangles = list()
   last_value = dict()
 
-  for filename in sorted(os.listdir(temp_image_path + path)):
+  for filename in sorted(os.listdir(temp_images_path + path)):
 
     filenameParts = filename.split("-")
     shelf_num = filenameParts[0]
@@ -100,7 +101,7 @@ def main(argv):
         params = TriRecognizeParams()
         params._set_defaults()
     recognizer = TriRecognizer()
-    img_path = '''{0}{1}/{2}'''.format(temp_image_path, path, filename)
+    img_path = '''{0}{1}/{2}'''.format(temp_images_path, path, filename)
     out_data = recognizer.processImage(img_path, params)
     print('\n'+filename)
 

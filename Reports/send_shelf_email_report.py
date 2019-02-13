@@ -1,12 +1,12 @@
 import requests
 import psycopg2
 import json
+import os
 settings = {}
-
+settings_path = os.path.join(os.path.dirname(__file__), "..", "settings.json")
 def main():
-    with open('../settings.json') as jsonData:
+    with open(settings_path) as jsonData:
       settings = json.load(jsonData)
-      print(settings)
       jsonData.close()
 
     hostname = settings['postgres']['hostname']

@@ -123,8 +123,6 @@ def predictImages(rows):
                 local_folder_structure = '{0}{1}/{2}/{3}/' .format(temp_folder, racknum, date_path, shelf)
                 local_image_path = '{0}{1}/{2}/{3}/image{4}.jpg'.format(temp_folder, racknum, date_path, shelf,i)
                 create_folder_structure(local_folder_structure)
-                if save_images_locally:
-                    download_image(url, local_image_path)
                 prediction = google_image_prediction(url, local_image_path)
                 if prediction.payload:
                     name = prediction.payload[0].display_name
@@ -217,7 +215,7 @@ def prepareData():
         print('No Data On Date {0}, for racknum {1}'.format(subjectDate, racknum))
     print('\n\n')
     cursor.close()
-    
+
 def usage():
     print("python prediction.py -d YYYY-MM-DD -r Racknum")
     print("  -d YYYY-MM-DD : UTC date ex: 2016-11-28")

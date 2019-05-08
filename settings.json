@@ -13,12 +13,22 @@
     "host" : "https://smartrackapi.herokuapp.com",
     "local" : "http://localhost:3001"
   },
+  "vision" : {
+    "projectId" : "unique-alpha-223704",
+    "modelId" : "ICN1437230254985598693",
+    "no_of_images_per_shelf" : 5,
+    "save_images_locally" : false,
+    "score_threshold" : 0.3,
+    "compute_region": "us-central1"
+  },
   "prefs" : {
     "restock" : true,
     "shelves_report" : true,
     "logs" : false,
     "timelapse_fps": 2,
     "high_compression": 28,
-    "low_compression" : 18
+    "low_compression" : 18,
+    "start_time": "08:00:00",
+    "end_time": "22:00:00"
   }
 }

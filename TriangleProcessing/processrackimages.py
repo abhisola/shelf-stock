@@ -112,6 +112,8 @@ def main(argv):
     querry = ''''''
     parameter = out_data['Parameters']
     percent_full = round(out_data['PercentFull'], 2)
+    if percent_full < 0:
+        percent_full = 0
     triangle_count = out_data['TriangleCount']
     triangles_expected = parameter['TrianglesExpected']
     image_url = aws + path + "/" + filename
